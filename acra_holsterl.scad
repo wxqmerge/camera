@@ -1,19 +1,16 @@
 include <Round-Anything/polyround.scad>
 
-arca=[[36,7],[36,11],[38,13],[38,15],[0,15],[0,13],[2,11],[2,7],[0,5],[0,3],[38,3],[38,5]];
 fittings=[[0,54,1],[0,0,1],[4,-1,1],[6,0,1],[6,54,1],[4,55,1]];
 fitting=[[28,0],[0,0],[0,6],[28,6],[29,4]];
 fillett=[[10,0],[0,0],[0,17],[1,15],[2,10],[5,4]];
-tps = [[0, 1.15], [1.15, 0]];
 base1 = 30;
 BackHeight = 2;
 
 // CRITICAL: arca mount interface - DO NOT MODIFY
 module arca_mount_cutout() {
-    scale([1.05, 1.05, 1])
     translate([1,-17, -10])
         linear_extrude(height = base1)
-            polygon(points = arca * tps);
+            polygon([[8.4525,43.47],[13.2825,43.47],[15.6975,45.885],[18.1125,45.885],[18.1125,0],[15.6975,0],[13.2825,2.415],[8.4525,2.415],[6.0375,0],[3.6225,0],[3.6225,45.885],[6.0375,45.885]]);
 }
 
 // CRITICAL: mounting/acetone/bottom holes - DO NOT MODIFY
