@@ -1,0 +1,10 @@
+node_modules/
+*.stl
+*.png
+*.obj
+*.off
+*.3mf
+*.amf
+*.dxf
+*.svg
+.DS_Store
