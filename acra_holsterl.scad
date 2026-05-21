@@ -11,13 +11,37 @@ tps = [
   [0, 1.15],
   [1.15, 0]
 ];
-tpf = [
-  [0, 1],
-  [1, 0]
-];
 base1 = 30;
-base2 = 30;
 BackHeight=2;
+
+// CRITICAL: arca mount interface - DO NOT MODIFY
+module arca_mount_cutout() {
+    translate([1,-17, -10])
+        linear_extrude(height = base1)
+            polygon(points = arca * tps);
+}
+
+// CRITICAL: mounting/acetone/bottom holes - DO NOT MODIFY
+module all_holes() {
+    // mounting hole
+    translate([-10,5, 20+BackHeight*25])
+        rotate([ 0,90, 0])
+        cylinder(h=40,r=5);
+    // acetone holes
+    translate([-3,15, -15])
+        rotate([ 0,0, 90])
+        cylinder(h=190,r=1);
+    translate([-3,-5, -15])
+        rotate([ 0,0, 90])
+        cylinder(h=190,r=1);
+    // bottom holes
+    translate([28,30, -15])
+        rotate([-40,1, 90])
+        cylinder(h=19.6,r=.5);
+    translate([28,-21, -15])
+        rotate([-40,1, 90])
+        cylinder(h=19.6,r=.5);
+}
 scale([1.05, 1.05, 1])
 union() 
 {
@@ -66,79 +90,21 @@ union()
                    translate([-10,27.1, 0])
             rotate([ 0,-15, 0])
                            cube([23,55,5],center=true);
-//stiffeners
-        translate([.1,1.3, -.10])
-             rotate([ -8,0, -4])
-                scale([1, .5, .5])
-                  rotate([ 90,0, 0])
-                    rotate([ 0,0, 90])
-                    {
-                      scale([3, 2, 1])                      
-                        linear_extrude(5)
-                            polygon(fillett); 
-              translate([-1,-2, -2])
-                     scale([4, 3, 1])                      
-                        linear_extrude(5)
-                            polygon(fillett); 
-        translate([0,0, -4])
-                     scale([4, 3, 1])                      
-                        linear_extrude(5)
-                            polygon(fillett); 
-//*/
-                    }
-                            
-             translate([.1,55.5, -.1])
-            rotate([ 8,0, 4])
-                scale([1, .5, .5])
-                  rotate([ 90,0, 0])
-                    rotate([ 0,0, 90])
-                    {
-                           scale([3, 2, 1])
-                        linear_extrude(5)
-                            polygon(fillett);
-        translate([-1,-2, 2])
-                     scale([4, 3, 1])                      
-                        linear_extrude(5)
-                            polygon(fillett); 
-        translate([0,0, 4])
-                     scale([4, 3, 1])                      
-                        linear_extrude(5)
-                            polygon(fillett); 
-
-                            }
+// TODO: REBUILD STIFFENERS - better fillet design needed
+// REMEMBER LOCATIONS (transforms preserved):
+// STIFFENER 1 (inner side):
+//   base: translate([.1,1.3, -.10]) rotate([-8,0,-4]) scale([1,.5,.5]) rotate([90,0,0]) rotate([0,0,90])
+//     piece A: scale([3,2,1]) linear_extrude(5) polygon(fillett)
+//     piece B: translate([-1,-2,-2]) scale([4,3,1]) linear_extrude(5) polygon(fillett)
+//     piece C: translate([0,0,-4])  scale([4,3,1]) linear_extrude(5) polygon(fillett)
+// STIFFENER 2 (outer side):
+//   base: translate([.1,55.5, -.1]) rotate([8,0,4]) scale([1,.5,.5]) rotate([90,0,0]) rotate([0,0,90])
+//     piece A: scale([3,2,1]) linear_extrude(5) polygon(fillett)
+//     piece B: translate([-1,-2,2]) scale([4,3,1]) linear_extrude(5) polygon(fillett)
+//     piece C: translate([0,0,4])  scale([4,3,1]) linear_extrude(5) polygon(fillett)
+// fillett profile: [[10,0],[0,0],[0,17],[1,15],[2,10],[5,4]]
         }
-        union() 
-        {                        
-            //arca mount
-             translate([1,-17, -10])
-                linear_extrude(height = base1)
-                   polygon(points = arca * tps);
-            //holes
-             translate([-10,5, 20+BackHeight*25])
-                rotate([ 0,90, 0])
-            cylinder(h=40,r=5);
-//            translate([-10,-10, 5+BackHeight*15])
-//                rotate([ 0,90, 0])
-//            cylinder(h=40,r=5);
-//             translate([-10,15, 20+BackHeight*15])
-//                rotate([ 0,90, 0])
-//            cylinder(h=40,r=5);
-            
-//acetone holes
-             translate([-3,15, -15])
-                rotate([ 0,0, 90])
-            cylinder(h=190,r=1);
-             translate([-3,-5, -15])
-                rotate([ 0,0, 90])
-            cylinder(h=190,r=1);
-//bottom holes     
-            translate([28,30, -15])
-                rotate([-40,1, 90])
-            cylinder(h=19.6,r=.5);
-            translate([28,-21, -15])
-                rotate([-40,1, 90])
-            cylinder(h=19.6,r=.5);
-     
-        }
+       arca_mount_cutout();
+        all_holes();
   };
 };
