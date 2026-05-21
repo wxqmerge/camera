@@ -35,7 +35,7 @@ union()
              translate([0,26.9, 0])
                 rotate([ 0,90, 0])
                     rotate([ 0,0, 90])
-                        rotate_extrude(angle = 180, $fn = 150)
+                        rotate_extrude(angle = 180)
                             polygon(fitting);
              translate([-60,-0, 21])
             cube(100);
@@ -46,7 +46,7 @@ union()
                      scale([1, .87, .25])
                 rotate([ 0,90, 0])
                     rotate([ 0,0, 90])
-                 rotate_extrude(angle = 180, $fn = 150)
+                        rotate_extrude(angle = 180, $fn = 100)
                             polygon(fitting);
 
 //corner
@@ -54,13 +54,13 @@ union()
          scale([1, 1.04, 1])
         rotate([ -90,0, 0])
                 hull()
-                    rotate_extrude(angle = 90, $fn = 150)
+                    rotate_extrude(angle = 90)
                          polygon(polyRound(fittings,30));
 //back
              translate([0,27, 0])
         scale([1+BackHeight, 1, 1])
                 rotate([ 0,180, 90])
-                     rotate_extrude(angle = 180, $fn = 150)
+                     rotate_extrude(angle = 180, $fn = 100)
                             polygon(fitting);
 //back thicker
                    translate([-10,27.1, 0])
@@ -140,120 +140,5 @@ union()
             cylinder(h=19.6,r=.5);
      
         }
-   };
-}
-
-// Cut flat bottom for printing
-difference()
-{
-    scale([1.05, 1.05, 1])
-    union() 
-    {
-        difference()
-     //   union()
-        {
-            rotate([ 0,90, 0])
-                 translate([0,-25, 0])
-                scale([1, 1.1, 1])
-        union (){
-            difference()
-            {
-             scale([1, 1, 1.45])
-                 translate([0,26.9, 0])
-                    rotate([ 0,90, 0])
-                        rotate([ 0,0, 90])
-                            rotate_extrude(angle = 180, $fn = 150)
-                                polygon(fitting);
-                 translate([-60,-0, 21])
-                cube(100);
-            }
-
-                 translate([0,27, 19.5])
-                        scale([1, .87, .25])
-                   rotate([ 0,90, 0])
-                       rotate([ 0,0, 90])
-                           rotate_extrude(angle = 180, $fn = 150)
-                               polygon(fitting);
-
-                 translate([0,-1.1, 0])
-             scale([1, 1.04, 1])
-            rotate([ -90,0, 0])
-                    hull()
-                        rotate_extrude(angle = 90, $fn = 150)
-                             polygon(polyRound(fittings,30));
-                 translate([0,27, 0])
-            scale([1+BackHeight, 1, 1])
-                    rotate([ 0,180, 90])
-                         rotate_extrude(angle = 180, $fn = 150)
-                                polygon(fitting);
-                   translate([-10,27.1, 0])
-                rotate([ 0,-15, 0])
-                               cube([23,55,5],center=true);
-            translate([.1,1.3, -.10])
-                 rotate([ -8,0, -4])
-                    scale([1, .5, .5])
-                      rotate([ 90,0, 0])
-                        rotate([ 0,0, 90])
-                        {
-                          scale([3, 2, 1])                      
-                            linear_extrude(5)
-                                polygon(fillett); 
-                translate([-1,-2, -2])
-                       scale([4, 3, 1])                      
-                            linear_extrude(5)
-                                polygon(fillett); 
-                translate([0,0, -4])
-                       scale([4, 3, 1])                      
-                            linear_extrude(5)
-                                polygon(fillett); 
-                        }
-                                
-                 translate([.1,55.5, -.1])
-                rotate([ 8,0, 4])
-                    scale([1, .5, .5])
-                      rotate([ 90,0, 0])
-                        rotate([ 0,0, 90])
-                        {
-                               scale([3, 2, 1])
-                            linear_extrude(5)
-                                polygon(fillett);
-                translate([-1,-2, 2])
-                       scale([4, 3, 1])                      
-                            linear_extrude(5)
-                                polygon(fillett); 
-                translate([0,0, 4])
-                       scale([4, 3, 1])                      
-                            linear_extrude(5)
-                                polygon(fillett); 
-
-                                }
-            }
-            union() 
-            {                        
-                translate([1,-17, -10])
-                   linear_extrude(height = base1)
-                      polygon(points = arca * tps);
-                translate([-10,5, 20+BackHeight*25])
-                   rotate([ 0,90, 0])
-                cylinder(h=40,r=5);
-                translate([-3,15, -15])
-                   rotate([ 0,0, 90])
-                cylinder(h=190,r=1);
-                translate([-3,-5, -15])
-                   rotate([ 0,0, 90])
-                cylinder(h=190,r=1);
-                translate([28,30, -15])
-                   rotate([-40,1, 90])
-                cylinder(h=19.6,r=.5);
-                translate([28,-21, -15])
-                   rotate([-40,1, 90])
-                cylinder(h=19.6,r=.5);
-     
-            }
-      };
-    };
-
-    // Cut flat bottom
-    translate([-60,-60,-7])
-    cube([120,120,100]);
-}
+  };
+};
