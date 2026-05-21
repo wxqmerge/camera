@@ -1,7 +1,7 @@
 include <Round-Anything/polyround.scad>
 
-fittings=[[0,54,1],[0,0,1],[4,-1,1],[6,0,1],[6,54,1],[4,55,1]];
-fitting=[[28,0],[0,0],[0,6],[28,6],[29,4]];
+fittings=[[0,56.16,1],[0,0,1],[4,-1.04,1],[6,0,1],[6,56.16,1],[4,57.2,1]];
+fitting=[[28,0],[0,0],[0,6],[28,6]];
 fillett=[[10,0],[0,0],[0,17],[1,15],[2,10],[5,4]];
 base1 = 30;
 BackHeight = 2;
@@ -15,24 +15,21 @@ module arca_mount_cutout() {
 
 // CRITICAL: mounting/acetone/bottom holes - DO NOT MODIFY
 module all_holes() {
-    scale([1.05, 1.05, 1])
-    union() {
-        translate([-10,5, 20+BackHeight*25])
-            rotate([0,90,0])
-            cylinder(h=40,r=5);
-        translate([-3,15, -15])
-            rotate([0,0,90])
-            cylinder(h=190,r=1);
-        translate([-3,-5, -15])
-            rotate([0,0,90])
-            cylinder(h=190,r=1);
-        translate([28,30, -15])
-            rotate([-40,1,90])
-            cylinder(h=19.6,r=.5);
-        translate([28,-21, -15])
-            rotate([-40,1,90])
-            cylinder(h=19.6,r=.5);
-    }
+    translate([-10.5,5.25, 20+BackHeight*25])
+        rotate([0,90,0])
+        cylinder(h=40,r=5.25);
+    translate([-3.15,15.75, -15])
+        rotate([0,0,90])
+        cylinder(h=190,r=1.05);
+    translate([-3.15,-5.25, -15])
+        rotate([0,0,90])
+        cylinder(h=190,r=1.05);
+    translate([29.4,31.5, -15])
+        rotate([-40,1,90])
+        cylinder(h=19.6,r=.525);
+    translate([29.4,-22.05, -15])
+        rotate([-40,1,90])
+        cylinder(h=19.6,r=.525);
 }
 
 difference() {
@@ -42,6 +39,7 @@ difference() {
     scale([1, 1.1, 1])
     union() {
         // bottom
+        color("steelblue", 0.5)
         difference() {
             scale([1, 1, 1.45])
             translate([0,27, 0])
@@ -53,6 +51,7 @@ difference() {
             cube(100);
         }
         // bottom tip
+        color("cornflowerblue", 0.5)
         translate([0,27, 19.5])
         scale([1, .87, .25])
         rotate([0,90,0])
@@ -60,22 +59,24 @@ difference() {
         rotate_extrude(angle = 180, $fn = 100)
             polygon(fitting);
         // corner
+        color("skyblue", 0.5)
         translate([0,-1, 0])
-        scale([1, 1.04, 1])
         rotate([-90,0,0])
         hull()
             rotate_extrude(angle = 90)
                 polygon(polyRound(fittings,30));
         // back
+        color("slateblue", 0.5)
         translate([0,27, 0])
         scale([1+BackHeight, 1, 1])
         rotate([0,180,90])
         rotate_extrude(angle = 180, $fn = 100)
             polygon(fitting);
         // back thicker
+        color("mediumslateblue", 0.5)
         translate([-10,27, 0])
         rotate([0,-15,0])
-        cube([23,55,5],center=true);
+        cube([23,54,5],center=true);
     }
     // TODO: REBUILD STIFFENERS - better fillet design needed
     // REMEMBER LOCATIONS (transforms preserved):
